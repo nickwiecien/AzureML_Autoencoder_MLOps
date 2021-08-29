@@ -27,6 +27,8 @@ pool:
 stages:
 - stage: 'Publish_AML_Pipeline'
   displayName: 'Publish AML Pipeline'
+  variables:
+    - group: azureml-variables
   jobs:
   - job: "AML_PIPELINE"
     displayName: "Prod - Build and Publish AML Pipeline"
@@ -50,10 +52,13 @@ stages:
   displayName: 'Prod - Run Training and Evaluation Pipeline'
   condition: succeeded()
   variables:
+  - group: azureml-variables
   - name: BUILD_URI
     value: '$(SYSTEM.COLLECTIONURI)$(SYSTEM.TEAMPROJECT)/_build/results?buildId=$(BUILD.BUILDID)'
   jobs:
   - job: "Get_Pipeline_ID"
+    variables:
+    - group: azureml-variables
     condition: and(succeeded(), eq(coalesce(variables['auto-trigger-training'], 'true'), 'true'))
     displayName: "Get Pipeline ID"
     container: mlops

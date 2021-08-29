@@ -17,12 +17,23 @@ from azureml.data.data_reference import DataReference
 from azureml.data.sql_data_reference import SqlDataReference
 from azureml.pipeline.steps import DataTransferStep
 import logging
+import os
 
 # ### Connect to Azure ML Workspace, Provision Compute Resources, and get References to Datastores
 # Connect to workspace using config associated config file. Get a reference to you pre-existing AML compute cluster or provision a new cluster to facilitate processing. Finally, get references to your default blob datastore.
 
 # Connect to AML Workspace
-ws = Workspace.from_config()
+subscription_id = os.getenv("SUBSCRIPTION_ID", default="")
+resource_group = os.getenv("RESOURCE_GROUP", default="")
+workspace_name = os.getenv("WORKSPACE_NAME", default="")
+workspace_region = os.getenv("WORKSPACE_REGION", default="")
+
+try:
+    # ws = Workspace.from_config()
+    ws = Workspace(subscription_id=subscription_id, 
+                   resource_group=resource_group, 
+                   workspace_name=workspace_name)
+    print("Workspace configuration succeeded. Skip the workspace creation steps below")
 
 #Select AML Compute Cluster
 cpu_cluster_name = 'cpucluster'
