@@ -2,14 +2,14 @@
 trigger:
   branches:
     include:
-      - master
+      - main
   paths:
     include:
       - 03-AML_AzDO_MLOpsDevelopment/.pipelines/arm-templates/*
 pr:
   branches:
     include:
-      - master
+      - main
   paths:
     include:
       - 03-AML_AzDO_MLOpsDevelopment/.pipelines/arm-templates/*
