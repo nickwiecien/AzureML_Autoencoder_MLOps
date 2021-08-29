@@ -1,0 +1,96 @@
+# Pipeline that orchestrates deployment and execution of a many-models Azure Machine Learning pipeline across Dev, QA, and Prod environments.
+
+resources:
+  containers:
+  - container: mlops
+    image: mcr.microsoft.com/mlops/python:latest
+
+pr:
+  branches:
+    exclude:
+      - '*'
+trigger:
+  branches:
+    include:
+    - MLOps
+  paths:
+    include:
+    - 03-AML_AzDO_MLOpsDevelopment/
+
+variables:
+- template: mlops-variables-template.yml
+- group: devopsforai-aml-vg
+
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+- stage: 'Publish_AML_Pipeline'
+  displayName: 'Publish AML Pipeline'
+  variables:
+    - group: azureml-variables
+  jobs:
+  - job: "AML_PIPELINE"
+    displayName: "Prod - Build and Publish AML Pipeline"
+    container: mlops
+    timeoutInMinutes: 0
+    steps:
+    # - template: code-quality-template.yml
+    - task: AzureCLI@1
+      inputs:
+        azureSubscription: '$(WORKSPACE_SVC_CONNECTION)'
+        scriptLocation: inlineScript
+        workingDirectory: $(Build.SourcesDirectory)/03-AML_AzDO_MLOpsDevelopment
+        inlineScript: |
+          set -e # fail on error
+          export SUBSCRIPTION_ID=$(az account show --query id -o tsv)
+          # Invoke the Python building and publishing a training pipeline
+          python -m CreateAMLPipeline
+      displayName: 'Publish Azure Machine Learning Pipeline (Autoencoder Training & Registration)'
+
+- stage: 'Trigger_AML_Pipeline'
+  displayName: 'Prod - Run Training and Evaluation Pipeline'
+  condition: succeeded()
+  variables:
+  - group: azureml-variables
+  - name: BUILD_URI
+    value: '$(SYSTEM.COLLECTIONURI)$(SYSTEM.TEAMPROJECT)/_build/results?buildId=$(BUILD.BUILDID)'
+  jobs:
+  - job: "Get_Pipeline_ID"
+    variables:
+    - group: azureml-variables
+    condition: and(succeeded(), eq(coalesce(variables['auto-trigger-training'], 'true'), 'true'))
+    displayName: "Get Pipeline ID"
+    container: mlops
+    timeoutInMinutes: 0
+    steps:
+    - task: AzureCLI@1
+      inputs:
+        azureSubscription: '$(WORKSPACE_SVC_CONNECTION)'
+        scriptLocation: inlineScript
+        workingDirectory: $(Build.SourcesDirectory)/UnifiedPipeline
+        inlineScript: |
+          set -e # fail on error
+          export SUBSCRIPTION_ID=$(az account show --query id -o tsv)
+          python -m GetUnifiedPipelineID --output_pipeline_id_file "pipeline_id.txt"
+          # Set AMLPIPELINEID variable for next AML Pipeline task in next job
+          AMLPIPELINEID="$(cat pipeline_id.txt)"
+          echo "##vso[task.setvariable variable=AMLPIPELINEID;isOutput=true]$AMLPIPELINEID"
+      name: 'getpipelineid'
+      displayName: 'Get Pipeline ID'
+  - job: "Run_ML_Pipeline"
+    dependsOn: "Get_Pipeline_ID"
+    displayName: "Run AML Pipeline"
+    timeoutInMinutes: 0
+    pool: server
+    variables:
+      AMLPIPELINE_ID: $[ dependencies.Get_Pipeline_ID.outputs['getpipelineid.AMLPIPELINEID'] ]
+    steps:
+    - task: ms-air-aiagility.vss-services-azureml.azureml-restApi-task.MLPublishedPipelineRestAPITask@0
+      displayName: 'Invoke ML pipeline'
+      inputs:
+        azureSubscription: '$(WORKSPACE_SVC_CONNECTION)'
+        PipelineId: '$(AMLPIPELINE_ID)'
+        ExperimentName: '$(EXPERIMENT_NAME)'
+        PipelineParameters: ' "tags": {"BuildId": "$(Build.BuildId)", "BuildUri": "$(BUILD_URI)"}, "StepTags": {"BuildId": "$(Build.BuildId)", "BuildUri": "$(BUILD_URI)"}'
+  
