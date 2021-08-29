@@ -1,4 +1,4 @@
-# Pipeline that orchestrates deployment and execution of a many-models Azure Machine Learning pipeline across Dev, QA, and Prod environments.
+# Pipeline that orchestrates deployment and execution of an Azure Machine Learning pipeline into a prod environments.
 
 resources:
   containers:
