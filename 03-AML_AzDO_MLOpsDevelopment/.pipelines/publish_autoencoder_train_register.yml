@@ -24,6 +24,14 @@ variables:
 pool:
   vmImage: ubuntu-latest
 
+schedules:
+- cron: "0 */1 * * *"
+  displayName: Hourly Pipeline Run
+  branches:
+    include:
+    - main
+  always: true
+
 stages:
 - stage: 'Publish_AML_Pipeline'
   displayName: 'Publish AML Pipeline'
