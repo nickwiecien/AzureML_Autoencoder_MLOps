@@ -34,7 +34,10 @@ try:
                    resource_group=resource_group, 
                    workspace_name=workspace_name)
     print("Workspace configuration succeeded. Skip the workspace creation steps below")
-
+except:
+    print("Workspace does not exist. Creating workspace")
+    ws = Workspace.create(name=workspace_name, subscription_id=subscription_id, resource_group=resource_group,
+                            location=workspace_region, create_resource_group=True, sku='enterprise', exist_ok=True)
 #Select AML Compute Cluster
 cpu_cluster_name = 'cpucluster'
 
