@@ -176,7 +176,11 @@ pipeline = Pipeline(workspace=ws, steps=[get_data_step, split_scale_step, train_
 # ### Publish Pipeline
 # Create a published version of your pipeline that can be triggered via an authenticated REST API request.
 
-published_pipeline = pipeline.publish(name = 'Autoencoder_Training_Registration_Pipeline',
+build_id = os.getenv('BUILD_BUILDID', default='1')
+pipeline_name = os.getenv("PIPELINE_NAME", default="autoencoder-training-registration-pipeline")
+
+published_pipeline = pipeline.publish(name = pipeline_name,
+                                        version=build_id,
                                      description = 'Pipeline to load/register IoT telemetry data from ADLS Gen2, train a Tensorflow/Keras autoencoder for anomaly detection, and register the trained model if it performs better than the current best model.',
                                      continue_on_step_failure = False)
 
