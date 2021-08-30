@@ -8,8 +8,6 @@ This repo contains samples for development of an autoencoder (used for anomaly d
 * <b>Automated Retraining via Azure ML Pipelines - Partial MLOps</b>
 * <b>Automated Retraining and Deployment via Azure ML & Azure DevOps - Full MLOps</b>
 
-The code for each development posture is located within its corresponding subdirectory.
-
 The autoencoder training routine and source data were adapted from the [Microsoft Cloud Workshop - Predictive Maintenance for Remote Field Devices](https://github.com/microsoft/MCW-Predictive-Maintenance-for-remote-field-devices). 
 
 The Infrastructure-as-Code and MLOps pipelines were adapted from [Microsoft's MLOps for Python Template Repository](https://docs.microsoft.com/en-us/azure/architecture/reference-architectures/ai/mlops-python). 
@@ -25,7 +23,7 @@ The `01-Local_Development` directory contains a notebook `autoencoder_training.i
 
 ### Automated Retraining via Azure ML Pipelines - Partial MLOps ###
 
-To build and run the sample pipeline contained in `CreateAMLPipeline.ipynb` the following resources are required:
+To build and run the sample pipeline contained in `02-AML_Development/CreateAMLPipeline.ipynb` the following resources are required:
 * Azure Machine Learning Workspace
 * ADLS Gen 2 Storage Account
 * ADLS Gen 2 File System with sample data from `01-Local_Development/sample_data` organized in the following structure:
