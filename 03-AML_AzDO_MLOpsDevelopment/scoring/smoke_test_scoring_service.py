@@ -80,8 +80,8 @@ def main():
         output = call_web_service(args.type, args.service)
     print("Verifying service output")
 
-    assert "result" in output
-    assert len(output["result"]) == output_len
+    assert type(output) == int
+    assert output==1
     print("Smoke test successful.")
 
 
