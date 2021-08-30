@@ -1,0 +1,17 @@
+name: autoencoder_training_env
+channels:
+  - anaconda
+  - conda-forge
+dependencies:
+  - python=3.8.10
+  - pip:
+      - requests==2.26.0
+      - pandas==0.25.3
+      - numpy==1.19.2
+      - scikit-learn==0.22.2.post1
+      - joblib==0.14.1
+      - h5py==3.1.0
+      - tensorflow==2.6.0
+      - keras==2.6.0
+      - azureml-defaults==1.33.0
+      - matplotlib

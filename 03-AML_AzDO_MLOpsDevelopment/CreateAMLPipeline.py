@@ -80,6 +80,8 @@ run_config.environment.python.conda_dependencies.set_pip_requirements([
     'matplotlib'
 ])
 run_config.environment.python.conda_dependencies.set_python_version('3.8.10')
+#Register environment for reuse 
+run_config.environment.register(ws)
 
 # ### Define Output Datasets
 # Below we define the configuration for datasets that will be passed between steps in our pipeline. Note, in all cases we specify the datastore that should hold the datasets and whether they should be registered following step completion or not. This can optionally be disabled by removing the register_on_complete() call. upload_file_dataset is intended to hold the data within an uploaded CSV file and processed_dataset will contain our uploaded data post-processing.

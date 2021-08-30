@@ -16,3 +16,8 @@ variables:
     value: 0
   - name: AML_CLUSTER_MAX_NODES
     value: 1
+  
+  - name: SOURCES_DIR_TRAIN
+    value: 03-AML_AzDO_MLOpsDevelopment
+  - name: SCORE_SCRIPT
+    value: scoring/score.py
