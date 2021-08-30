@@ -7,7 +7,7 @@ import secrets
 import os
 
 
-input = [[70, 200, 60.6, 0, 1448.17]]
+input = [[14.23, 41, 14.4, 318.50, 601.95]]
 output_len = 1
 
 
