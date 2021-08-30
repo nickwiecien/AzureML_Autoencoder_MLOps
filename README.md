@@ -4,13 +4,15 @@ Supporting ML models in production requires management and maintenance throughou
 
 This repo contains samples for development of an autoencoder (used for anomaly detection) from three different postures:
 
-* 1.) Local Development - No MLOps
-* 2.) Automated Retraining via Azure ML Pipelines - Partial MLOps
-* 3.) Automated Retraining and Deployment via Azure ML & Azure DevOps - Full MLOps
+* <b>Local Development - No MLOps</b>
+* <b>Automated Retraining via Azure ML Pipelines - Partial MLOps</b>
+* <b>Automated Retraining and Deployment via Azure ML & Azure DevOps - Full MLOps</b>
 
 The code for each development posture is located within its corresponding subdirectory.
 
-The autoencoder training routine and source data were adapted from the [Microsoft Cloud Workshop - Predictive Maintenance for Remote Field Devices](https://github.com/microsoft/MCW-Predictive-Maintenance-for-remote-field-devices). The Infrastructure-as-Code and MLOps pipelines were adapted from [Microsoft's MLOps for Python Template Repository](https://docs.microsoft.com/en-us/azure/architecture/reference-architectures/ai/mlops-python). 
+The autoencoder training routine and source data were adapted from the [Microsoft Cloud Workshop - Predictive Maintenance for Remote Field Devices](https://github.com/microsoft/MCW-Predictive-Maintenance-for-remote-field-devices). 
+
+The Infrastructure-as-Code and MLOps pipelines were adapted from [Microsoft's MLOps for Python Template Repository](https://docs.microsoft.com/en-us/azure/architecture/reference-architectures/ai/mlops-python). 
 
 ![Autoencoder MLOps](img/banner.png?raw=true "Autoencoder-MLOps")
 
@@ -36,4 +38,6 @@ iot-telemetry/
 ├─ immediate/
 │  ├─ Immediate.csv
 ~~~
-Prior to creating the automated retraining pipeline, register the ADLS Gen 2 Storage Account as a datastore in the AML workspace [using the steps described here](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-access-data#azure-data-lake-storage-generation-2). To create the automated retraining pipeline, run the `CreateAMLPipeline.ipynb` notebook. <i>Note: it is recommended to run this notebook from an Azure Machine Learning compute instance using the preconfigured `Python 3.8 - AzureML` environment</i>.
+Prior to creating the automated retraining pipeline, register the ADLS Gen 2 Storage Account as a datastore in the AML workspace [using the steps described here](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-access-data#azure-data-lake-storage-generation-2). 
+
+To create the automated retraining pipeline, run the `CreateAMLPipeline.ipynb` notebook. <i>Note:</i> it is recommended to run this notebook from an Azure Machine Learning compute instance using the preconfigured `Python 3.8 - AzureML` environment.
