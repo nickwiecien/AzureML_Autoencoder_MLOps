@@ -29,6 +29,7 @@ def call_web_service(service_type, service_name):
     print("Testing service")
     print(". url: %s" % service.scoring_uri)
     output = call_web_app(service.scoring_uri, headers)
+    print(output)
 
     return output
 
