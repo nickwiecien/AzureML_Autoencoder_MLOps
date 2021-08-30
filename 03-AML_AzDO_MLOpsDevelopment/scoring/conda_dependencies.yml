@@ -13,3 +13,4 @@ dependencies:
       - keras==2.6.0
       - azureml-defaults==1.33.0
       - matplotlib
+      - azureml-model-management-sdk
