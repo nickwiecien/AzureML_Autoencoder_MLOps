@@ -101,4 +101,11 @@ stages:
         PipelineId: '$(AMLPIPELINE_ID)'
         ExperimentName: '$(EXPERIMENT_NAME)'
         PipelineParameters: '"ParameterAssignments": {"batch_size": "$(BATCH_SIZE)", "num_epochs": "$(NUM_EPOCHS)"}, "tags": {"BuildId": "$(Build.BuildId)", "BuildUri": "$(BUILD_URI)"}, "StepTags": {"BuildId": "$(Build.BuildId)", "BuildUri": "$(BUILD_URI)"}'
-  
+  - job: "Training_Run_Report"
+    dependsOn: "Run_ML_Pipeline"
+    condition: always()
+    displayName: "Publish artifact if new model was registered"
+    container: mlops
+    timeoutInMinutes: 0
+    steps:
+    - template: autoencoder-publish-model-artifact-template.yml
