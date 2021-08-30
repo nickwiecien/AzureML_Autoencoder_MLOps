@@ -40,4 +40,19 @@ iot-telemetry/
 ~~~
 Prior to creating the automated retraining pipeline, register the ADLS Gen 2 Storage Account as a datastore in the AML workspace [using the steps described here](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-access-data#azure-data-lake-storage-generation-2). 
 
-To create the automated retraining pipeline, run the `CreateAMLPipeline.ipynb` notebook. <i>Note:</i> it is recommended to run this notebook from an Azure Machine Learning compute instance using the preconfigured `Python 3.8 - AzureML` environment.
+To create the automated retraining pipeline, run the `CreateAMLPipeline.ipynb` notebook. <i>Note:</i> it is recommended to run this notebook from an Azure Machine Learning compute instance using the preconfigured `Python 3.8 - AzureML` environment. The `ScoringDevelopment.ipynb` notebook showcases local development and debugging of model endpoint deployments.
+
+### Automated Retraining and Deployment via Azure ML & Azure DevOps - Full MLOps ###
+
+To build and run the MLOps pipelines contained in the `03-AML_AzDO_MLOpsDevelopment/.pipelines` directory the following resources are required:
+* Azure DevOps Project
+
+To deploy a new production resource group and workspace the follow the linked steps below from the MLOps for Python Template Repo:
+* [Setup Azure DevOps](https://github.com/microsoft/MLOpsPython/blob/master/docs/getting_started.md#setting-up-azure-devops)
+* [Connect Your Code](https://github.com/microsoft/MLOpsPython/blob/master/docs/getting_started.md#get-the-code) - Note: here you will connect this repo or your own fork.
+* [Create a Variable Group for your Pipeline](https://github.com/microsoft/MLOpsPython/blob/master/docs/getting_started.md#create-a-variable-group-for-your-pipeline)
+* [Create a DevOps Service Connection](https://github.com/microsoft/MLOpsPython/blob/master/docs/getting_started.md#get-the-code)
+* [Create the IaC Pipeline](https://github.com/microsoft/MLOpsPython/blob/master/docs/getting_started.md#create-the-iac-pipeline) - Note: use `03-AML_AzDO_MLOpsDevelopment/.pipelines/iac-create-environment-pipeline-arm.yml`
+* [Create a DevOps Service Connection for the ML Workspace](https://github.com/microsoft/MLOpsPython/blob/master/docs/getting_started.md#create-an-azure-devops-service-connection-for-the-azure-ml-workspace)
+* Setup the AML Pipeline Publish, Run, Evaluate yaml pipeline using `03-AML_AzDO_MLOpsDevelopment/.pipelines/publish_autoencoder_train_register.yml`
+* Setup the Continuous Deployment yaml pipeline using `03-AML_AzDO_MLOpsDevelopment/.pipelines/autoencoder-real-time-endpoint-cd.yml`
