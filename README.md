@@ -49,10 +49,12 @@ To build and run the MLOps pipelines contained in the `03-AML_AzDO_MLOpsDevelopm
 
 To deploy a new production resource group and workspace the follow the linked steps below from the MLOps for Python Template Repo:
 * [Setup Azure DevOps](https://github.com/microsoft/MLOpsPython/blob/master/docs/getting_started.md#setting-up-azure-devops)
-* [Connect Your Code](https://github.com/microsoft/MLOpsPython/blob/master/docs/getting_started.md#get-the-code) - Note: here you will connect this repo or your own fork.
+* [Connect Your Code](https://github.com/microsoft/MLOpsPython/blob/master/docs/getting_started.md#get-the-code) - Here you will connect this repo or your own fork
 * [Create a Variable Group for your Pipeline](https://github.com/microsoft/MLOpsPython/blob/master/docs/getting_started.md#create-a-variable-group-for-your-pipeline)
 * [Create a DevOps Service Connection](https://github.com/microsoft/MLOpsPython/blob/master/docs/getting_started.md#get-the-code)
-* [Create the IaC Pipeline](https://github.com/microsoft/MLOpsPython/blob/master/docs/getting_started.md#create-the-iac-pipeline) - Note: use `03-AML_AzDO_MLOpsDevelopment/.pipelines/iac-create-environment-pipeline-arm.yml`
+* [Create the IaC Pipeline](https://github.com/microsoft/MLOpsPython/blob/master/docs/getting_started.md#create-the-iac-pipeline) - Use `03-AML_AzDO_MLOpsDevelopment/.pipelines/iac-create-environment-pipeline-arm.yml`
 * [Create a DevOps Service Connection for the ML Workspace](https://github.com/microsoft/MLOpsPython/blob/master/docs/getting_started.md#create-an-azure-devops-service-connection-for-the-azure-ml-workspace)
-* Setup the AML Pipeline Publish, Run, Evaluate yaml pipeline using `03-AML_AzDO_MLOpsDevelopment/.pipelines/publish_autoencoder_train_register.yml`
-* Setup the Continuous Deployment yaml pipeline using `03-AML_AzDO_MLOpsDevelopment/.pipelines/autoencoder-real-time-endpoint-cd.yml`
+* Setup the continuous integration pipeline using `03-AML_AzDO_MLOpsDevelopment/.pipelines/publish_autoencoder_train_register.yml`
+* Setup the continuous deployment pipeline using `03-AML_AzDO_MLOpsDevelopment/.pipelines/autoencoder-real-time-endpoint-cd.yml`
+
+<i>Note:</i> Currently the connection to ADLS Gen 2 as a datastore in the production environment is not automated. Prior to running these CI/CD pipelines the steps for establishing that connection need to be repeated in the new AML workspace.
