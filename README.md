@@ -10,11 +10,9 @@ This repo contains samples for development of an autoencoder (used for anomaly d
 
 The code for each development posture is located within its corresponding subdirectory.
 
-The autoencoder training routine and source data were adapted from the [Microsoft Cloud Workshop - Predictive Maintenance for Remote Field Devices](https://github.com/microsoft/MCW-Predictive-Maintenance-for-remote-field-devices).
+The autoencoder training routine and source data were adapted from the [Microsoft Cloud Workshop - Predictive Maintenance for Remote Field Devices](https://github.com/microsoft/MCW-Predictive-Maintenance-for-remote-field-devices). The Infrastructure-as-Code and MLOps pipelines were adapted from [Microsoft's MLOps for Python Template Repository](https://docs.microsoft.com/en-us/azure/architecture/reference-architectures/ai/mlops-python). 
 
 ![Autoencoder MLOps](img/banner.png?raw=true "Autoencoder-MLOps")
-
-## Environment Setup
 
 
 ## Environment Setup
