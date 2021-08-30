@@ -48,7 +48,7 @@ model_description = 'TF/Keras autoencoder for detecting anomalies in multi-varia
 model_list = Model.list(ws, name=model_name, latest=True)
 first_registration = len(model_list)==0
 
-updated_tags = {'Mean Squared Error': metrics['Mean Squared Error']}
+updated_tags = {'Mean Squared Error': metrics['Mean Squared Error'], 'BuildId': tags['BuildId'], 'BuildUri': tags['BuildUri']}
 
 #If no model exists register the current model
 if first_registration:
