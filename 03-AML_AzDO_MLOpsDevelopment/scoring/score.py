@@ -1,10 +1,16 @@
 import os
 import numpy as np
 import pandas as pd
-import tensorflow.keras
 import joblib
-from tensorflow.keras.models import load_model
 import h5py
+
+import tensorflow as tf
+
+from tensorflow.keras.layers import Input, Dropout
+from keras.layers.core import Dense 
+from keras.models import Model, Sequential, load_model
+from keras import regularizers
+from keras.models import model_from_json
 
 def init():
     global model
@@ -20,9 +26,11 @@ def init():
         
         print('Loading scaler from:', scaler_path)
         scaler = joblib.load(scaler_path)
+        print(scaler)
 
         print('Loading model from:', model_path)
         model = load_model(model_path)
+        print(model)
 
     except Exception as e:
         init_error = e
@@ -37,7 +45,8 @@ def run(raw_data):
     try:
         print("Received input:", raw_data)
     
-        input_df = pd.read_json(raw_data['data'], orient='values')
+        input_df = pd.read_json(raw_data, orient='values')
+        print(input_df)
     
         sensor_readings = np.array(input_df)
         scaled_sensor_readings = scaler.transform(sensor_readings.reshape(1,-1))
@@ -60,6 +69,6 @@ def run(raw_data):
 if __name__ == "__main__":
     # Test scoring
     init()
-    test_row = '{"data":[[70, 200, 60.6, 0, 1448.17],[14.23, 41, 14.4, 318.50, 601.95]]}'
+    test_row = '[[14.23, 41, 14.4, 318.50, 601.95]]'
     prediction = run(test_row, {})
     print("Test result: ", prediction)
