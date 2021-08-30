@@ -45,12 +45,12 @@ def run(raw_data):
         pred_sensor_readings = model.predict(scaled_sensor_readings)
         score = np.mean(np.abs(scaled_sensor_readings - pred_sensor_readings[0]))
 
-    if score > 0.01:
-        print('WARNING! Abnormal conditions detected')
-        return 1
-    else:
-        print('Everything is ok')
-        return 0
+        if score > 0.01:
+            print('WARNING! Abnormal conditions detected')
+            return 1
+        else:
+            print('Everything is ok')
+            return 0
 
     except Exception as e:
         error = str(e)
