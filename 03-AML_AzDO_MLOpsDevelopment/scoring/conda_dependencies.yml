@@ -1,9 +1,7 @@
 name: autoencoder_training_env
-channels:
-  - anaconda
-  - conda-forge
 dependencies:
   - python=3.8.10
+  - pip
   - pip:
       - requests==2.26.0
       - pandas==0.25.3
