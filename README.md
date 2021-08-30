@@ -18,12 +18,12 @@ The Infrastructure-as-Code and MLOps pipelines were adapted from [Microsoft's ML
 
 
 ## Environment Setup
-<b>Local Development - No MLOps</b>
+### Local Development - No MLOps
 
 The `01-Local_Development` directory contains a notebook `autoencoder_training.ipynb`, pip requirements file `requirements.txt`, and sample data located in the `sample_data` subdirectory. Recommend first creating a virtual environment and installing required pip packages before executing this notebook. Model outputs are saved locally.
 
 
-<b>Automated Retraining via Azure ML Pipelines - Partial MLOps</b>
+### Automated Retraining via Azure ML Pipelines - Partial MLOps ###
 
 To build and run the sample pipeline contained in `CreateAMLPipeline.ipynb` the following resources are required:
 * Azure Machine Learning Workspace
