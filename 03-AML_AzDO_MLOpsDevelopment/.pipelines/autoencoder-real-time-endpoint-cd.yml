@@ -82,7 +82,7 @@ stages:
       displayName: 'Download Model Package (Artifacts and Dockerfile)'
       azureSubscription: '$(WORKSPACE_SVC_CONNECTION)'
         scriptLocation: inlineScript
-        workingDirectory: $(Build.SourcesDirectory)/
+        workingDirectory: $(Build.SourcesDirectory)/$(SOURCES_DIR_TRAIN)
         inlineScript: |
           set -e # fail on error
           python -m CreateModelPackage
