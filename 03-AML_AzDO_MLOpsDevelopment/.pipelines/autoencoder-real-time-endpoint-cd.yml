@@ -28,13 +28,13 @@ variables:
 - group: devopsforai-aml-vg
 
 stages:
-- stage: 'Deploy_ACI'
-  displayName: 'Deploy to ACI'
+- stage: 'Download_Model_Package'
+  displayName: 'Download Model Package'
   condition: variables['ACI_DEPLOYMENT_NAME']
   variables:
     - group: azureml-variables
   jobs:
-  - job: "Deploy_ACI"
+  - job: "Get_Package"
     displayName: "Deploy to ACI"
     container: mlops
     timeoutInMinutes: 0
@@ -46,7 +46,7 @@ stages:
         pipelineId: '$(resources.pipeline.model-train-ci.pipelineID)'
         artifactBuildId: ${{ parameters.artifactBuildId }}
     - task: AzureCLI@1
-      displayName: "Deploy to ACI (CLI)"
+      displayName: "Set Env Vars"
       inputs:
         azureSubscription: '$(WORKSPACE_SVC_CONNECTION)'
         scriptLocation: inlineScript
@@ -68,4 +68,9 @@ stages:
     - publish: $(Build.SourcesDirectory)/03-AML_AzDO_MLOpsDevelopment/docker
       artifact: modelpackage
     
-    
+- stage: 'Build and Push Image'
+  displayName: 'Build and Push Model Image to ACR'
+  jobs:
+    - job: 'Build_and_push_image'
+      steps:
+        
