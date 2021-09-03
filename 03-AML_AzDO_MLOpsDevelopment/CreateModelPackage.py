@@ -4,7 +4,14 @@ from azureml.core.compute import ComputeTarget, AmlCompute
 from azureml.core.compute_target import ComputeTargetException
 
 # Connect to AML Workspace
-ws = Workspace.from_config()
+subscription_id = os.getenv("SUBSCRIPTION_ID", default="")
+resource_group = os.getenv("RESOURCE_GROUP", default="")
+workspace_name = os.getenv("WORKSPACE_NAME", default="")
+workspace_region = os.getenv("WORKSPACE_REGION", default="")
+
+ws = Workspace(subscription_id=subscription_id, 
+                   resource_group=resource_group, 
+                   workspace_name=workspace_name)
 
 from azureml.core.environment import Environment
 from azureml.core.model import InferenceConfig, Model
