@@ -80,18 +80,18 @@ stages:
           export SUBSCRIPTION_ID=$(az account show --query id -o tsv)
           python -m smoke_test_scoring_service --type ACI --service "$(ACI_DEPLOYMENT_NAME)"
 
-  - job:
-      displayName: "Package_Model"
-      variables:
-            MODEL_NAME: $[ dependencies.Deploy_ACI.outputs['deploy_to_aci.MODEL_NAME'] ]
-            MODEL_VERSION: $[ dependencies.Deploy_ACI.outputs['deploy_to_aci.MODEL_VERSION'] ]
-      steps:
-      - task: AzureCLI@1
-        displayName: 'Download Model Package (Artifacts and Dockerfile)'
-        inputs:
-          azureSubscription: '$(WORKSPACE_SVC_CONNECTION)'
-          scriptLocation: inlineScript
-          workingDirectory: $(Build.SourcesDirectory)/03-AML_AzDO_MLOpsDevelopment
-          inlineScript: |
-            set -e # fail on error
-            python -m CreateModelPackage
+  - job: "Package_Model"
+    displayName: "Package_Model"
+    variables:
+          MODEL_NAME: $[ dependencies.Deploy_ACI.outputs['deploy_to_aci.MODEL_NAME'] ]
+          MODEL_VERSION: $[ dependencies.Deploy_ACI.outputs['deploy_to_aci.MODEL_VERSION'] ]
+    steps:
+    - task: AzureCLI@1
+      displayName: 'Download Model Package (Artifacts and Dockerfile)'
+      inputs:
+        azureSubscription: '$(WORKSPACE_SVC_CONNECTION)'
+        scriptLocation: inlineScript
+        workingDirectory: $(Build.SourcesDirectory)/03-AML_AzDO_MLOpsDevelopment
+        inlineScript: |
+          set -e # fail on error
+          python -m CreateModelPackage
