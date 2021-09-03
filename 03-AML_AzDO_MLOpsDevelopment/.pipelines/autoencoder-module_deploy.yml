@@ -50,6 +50,18 @@ stages:
         scriptLocation: inlineScript
         workingDirectory: $(Build.SourcesDirectory)
         inlineScript: 'az extension add --source https://azurecliext.blob.core.windows.net/release/azure_cli_ml-1.27.0-py3-none-any.whl --yes'
+
+    - task: AzureCLI@1
+      displayName: 'Download Model Package (Artifacts + Dockerfile)'
+      azureSubscription: '$(WORKSPACE_SVC_CONNECTION)'
+        scriptLocation: inlineScript
+        workingDirectory: $(Build.SourcesDirectory)/
+        inlineScript: |
+          set -e # fail on error
+          export SUBSCRIPTION_ID=$(az account show --query id -o tsv)
+          # Invoke the Python building and publishing a training pipeline
+          python -m CreateModelPackage
+
     - task: AzureCLI@1
       displayName: "Deploy to ACI (CLI)"
       inputs:
@@ -64,9 +76,6 @@ stages:
           --dc deployment_config_aci.yml \
           -g $(RESOURCE_GROUP) --workspace-name $(WORKSPACE_NAME) \
           --overwrite -v --ae True
-          MODEL_NAME="$(get_model.MODEL_NAME)"
-          MODEL_VERSION="$(get_model.MODEL_VERSION)"
-          
     - task: AzureCLI@1
       displayName: 'Smoke test'
       inputs:
@@ -77,14 +86,3 @@ stages:
           set -e # fail on error
           export SUBSCRIPTION_ID=$(az account show --query id -o tsv)
           python -m smoke_test_scoring_service --type ACI --service "$(ACI_DEPLOYMENT_NAME)"
-
-    - task: AzureCLI@1
-      displayName: 'Download Model Package (Artifacts + Dockerfile)'
-      azureSubscription: '$(WORKSPACE_SVC_CONNECTION)'
-        scriptLocation: inlineScript
-        workingDirectory: $(Build.SourcesDirectory)/
-        inlineScript: |
-          set -e # fail on error
-          export SUBSCRIPTION_ID=$(az account show --query id -o tsv)
-          # Invoke the Python building and publishing a training pipeline
-          python -m CreateModelPackage
