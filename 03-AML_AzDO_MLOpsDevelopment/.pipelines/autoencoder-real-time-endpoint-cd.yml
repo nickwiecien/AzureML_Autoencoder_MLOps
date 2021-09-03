@@ -73,4 +73,15 @@ stages:
   jobs:
     - job: 'Build_and_push_image'
       steps:
-        
+        - task: DownloadBuildArtifacts@1
+          inputs:
+            artifactName: modelpackage
+            buildType: 'current'
+            downloadType: 'single'
+            downloadPath: '$(System.ArtifactsDirectory)'
+        - task: Docker@2
+          inputs:
+            containerRegistry: 'acrserviceconn'
+            repository: 'autoencoder'
+            command: 'buildAndPush'
+            Dockerfile: '$(System.ArtifactsDirectory)/Dockerfile'
