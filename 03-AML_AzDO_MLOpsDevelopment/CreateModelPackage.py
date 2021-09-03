@@ -20,6 +20,7 @@ from azureml.core.webservice import LocalWebservice
 
 model_name = 'Autoencoder_PredMaintenance'
 # model_version = os.getenv('MODEL_VERSION', '')
+print(os.getenv('MODEL_NAME'))
 
 # Create inference configuration based on the environment definition and the entry script
 myenv = Environment.get(ws, 'tf_keras_autoencoder_env')
