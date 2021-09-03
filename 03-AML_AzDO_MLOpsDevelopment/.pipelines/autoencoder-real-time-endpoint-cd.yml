@@ -31,6 +31,8 @@ stages:
 - stage: 'Deploy_ACI'
   displayName: 'Deploy to ACI'
   condition: variables['ACI_DEPLOYMENT_NAME']
+  variables:
+    - group: azureml-variables
   jobs:
   - job: "Deploy_ACI"
     displayName: "Deploy to ACI"
