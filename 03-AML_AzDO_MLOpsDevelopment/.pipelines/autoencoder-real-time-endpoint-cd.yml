@@ -81,6 +81,9 @@ stages:
           python -m smoke_test_scoring_service --type ACI --service "$(ACI_DEPLOYMENT_NAME)"
     - task: AzureCLI@1
       displayName: 'Download Model Package (Artifacts and Dockerfile)'
+      variables:
+        MODEL_NAME: $(get_model.MODEL_NAME)
+        MODEL_VERSION: $(get_model.MODEL_VERSION)
       inputs:
         azureSubscription: '$(WORKSPACE_SVC_CONNECTION)'
         scriptLocation: inlineScript
