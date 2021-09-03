@@ -66,8 +66,8 @@ stages:
           --dc deployment_config_aci.yml \
           -g $(RESOURCE_GROUP) --workspace-name $(WORKSPACE_NAME) \
           --overwrite -v --ae True
-          MODEL_NAME="$(get_model.MODEL_NAME)"
-          MODEL_VERSION="$(get_model.MODEL_VERSION)"
+          export MODEL_NAME="$(get_model.MODEL_NAME)"
+          export MODEL_VERSION="$(get_model.MODEL_VERSION)"
 
     - task: AzureCLI@1
       displayName: 'Smoke test'
