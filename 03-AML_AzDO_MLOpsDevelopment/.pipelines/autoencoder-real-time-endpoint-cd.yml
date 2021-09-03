@@ -60,7 +60,7 @@ stages:
         workingDirectory: $(Build.SourcesDirectory)/$(SOURCES_DIR_TRAIN)/scoring
         inlineScript: |
           echo "##vso[task.setvariable variable=MODEL_NAME;isOutput=true]$(get_model.MODEL_NAME)"
-          echo "##vso[task.setvariable variable=MODEL_NAME;isOutput=true]$(get_model.MODEL_VERSION)"
+          echo "##vso[task.setvariable variable=MODEL_VERSION;isOutput=true]$(get_model.MODEL_VERSION)"
         name: 'deploy_to_aci'
   #   - task: AzureCLI@1
   #     displayName: 'Smoke test'
