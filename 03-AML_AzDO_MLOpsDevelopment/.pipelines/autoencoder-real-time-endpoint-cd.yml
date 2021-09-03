@@ -81,7 +81,7 @@ stages:
           python -m smoke_test_scoring_service --type ACI --service "$(ACI_DEPLOYMENT_NAME)"
 
   - job: "Package_Model"
-  dependsOn: "Deploy_ACI"
+    dependsOn: "Deploy_ACI"
     displayName: "Package_Model"
     container: mlops
     variables:
