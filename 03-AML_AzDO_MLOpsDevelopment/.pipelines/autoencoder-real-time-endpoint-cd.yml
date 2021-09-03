@@ -84,7 +84,7 @@ stages:
       inputs:
         azureSubscription: '$(WORKSPACE_SVC_CONNECTION)'
         scriptLocation: inlineScript
-        workingDirectory: $(Build.SourcesDirectory)/$(SOURCES_DIR_TRAIN)
+        workingDirectory: $(Build.SourcesDirectory)/03-AML_AzDO_MLOpsDevelopment
         inlineScript: |
           set -e # fail on error
           python -m CreateModelPackage
