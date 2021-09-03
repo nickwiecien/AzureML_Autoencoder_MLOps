@@ -81,7 +81,7 @@ stages:
             downloadPath: '$(System.ArtifactsDirectory)'
         - task: Docker@2
           inputs:
-            containerRegistry: 'acrserviceconn'
+            containerRegistry: 'acrserviceconn2'
             repository: 'autoencoder'
             command: 'buildAndPush'
             Dockerfile: '$(System.ArtifactsDirectory)/Dockerfile'
