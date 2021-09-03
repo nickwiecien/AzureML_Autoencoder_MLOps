@@ -82,11 +82,11 @@ stages:
 
   - job:
       displayName: "Package_Model"
-      steps:
-      - task: AzureCLI@1
-        variables:
+      variables:
             MODEL_NAME: $[ dependencies.Deploy_ACI.outputs['deploy_to_aci.MODEL_NAME'] ]
             MODEL_VERSION: $[ dependencies.Deploy_ACI.outputs['deploy_to_aci.MODEL_VERSION'] ]
+      steps:
+      - task: AzureCLI@1
         displayName: 'Download Model Package (Artifacts and Dockerfile)'
         inputs:
           azureSubscription: '$(WORKSPACE_SVC_CONNECTION)'
