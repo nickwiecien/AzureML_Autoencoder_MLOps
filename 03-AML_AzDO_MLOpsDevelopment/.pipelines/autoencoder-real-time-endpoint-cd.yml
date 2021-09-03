@@ -68,7 +68,7 @@ stages:
     - publish: $(Build.SourcesDirectory)/03-AML_AzDO_MLOpsDevelopment/docker
       artifact: modelpackage
     
-- stage: 'Build and Push Image'
+- stage: 'Build_and_Push_Image'
   displayName: 'Build and Push Model Image to ACR'
   jobs:
     - job: 'Build_and_push_image'
