@@ -85,3 +85,10 @@ stages:
             repository: 'autoencoder'
             command: 'buildAndPush'
             Dockerfile: '$(System.ArtifactsDirectory)/Dockerfile'
+        - task: Docker@2
+          inputs:
+            containerRegistry: 'acrserviceconn2'
+            repository: 'autoencoder'
+            command: 'buildAndPush'
+            Dockerfile: '$(System.ArtifactsDirectory)/Dockerfile'
+            tags: 'latest'
