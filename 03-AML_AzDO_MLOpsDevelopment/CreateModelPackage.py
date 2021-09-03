@@ -2,6 +2,7 @@
 from azureml.core import Workspace,Environment
 from azureml.core.compute import ComputeTarget, AmlCompute
 from azureml.core.compute_target import ComputeTargetException
+import os
 
 # Connect to AML Workspace
 subscription_id = os.getenv("SUBSCRIPTION_ID", default="")
@@ -16,11 +17,9 @@ ws = Workspace(subscription_id=subscription_id,
 from azureml.core.environment import Environment
 from azureml.core.model import InferenceConfig, Model
 from azureml.core.webservice import LocalWebservice
-import os
 
 model_name = os.getenv('MODEL_NAME', '')
 model_version = os.getenv('MODEL_VERSION', '')
-
 
 # Create inference configuration based on the environment definition and the entry script
 myenv = Environment.get(ws, 'tf_keras_autoencoder_env')
