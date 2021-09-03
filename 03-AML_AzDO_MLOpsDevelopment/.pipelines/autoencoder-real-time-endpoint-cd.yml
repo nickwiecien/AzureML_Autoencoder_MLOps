@@ -59,27 +59,10 @@ stages:
         scriptLocation: inlineScript
         workingDirectory: $(Build.SourcesDirectory)/$(SOURCES_DIR_TRAIN)/scoring
         inlineScript: |
-          echo "##vso[task.setvariable variable=MODEL_NAME;isOutput=true]$(get_model.MODEL_NAME)"
-          echo "##vso[task.setvariable variable=MODEL_VERSION;isOutput=true]$(get_model.MODEL_VERSION)"
-        name: 'deploy_to_aci'
-  #   - task: AzureCLI@1
-  #     displayName: 'Smoke test'
-  #     inputs:
-  #       azureSubscription: '$(WORKSPACE_SVC_CONNECTION)'
-  #       scriptLocation: inlineScript
-  #       workingDirectory: $(Build.SourcesDirectory)/$(SOURCES_DIR_TRAIN)/scoring
-  #       inlineScript: |
-  #         set -e # fail on error
-  #         export SUBSCRIPTION_ID=$(az account show --query id -o tsv)
-  #         python -m smoke_test_scoring_service --type ACI --service "$(ACI_DEPLOYMENT_NAME)"
-
-  # - job: "Package_Model"
-  #   container: mlops
-  #   displayName: "Package_Model"
-  #   variables:
-  #         MODEL_NAME: $[ dependencies.Deploy_ACI.outputs['deploy_to_aci.MODEL_NAME'] ]
-  #         MODEL_VERSION: $[ dependencies.Deploy_ACI.outputs['deploy_to_aci.MODEL_VERSION'] ]
-  #   steps:
+          echo "##vso[task.setvariable variable=MODEL_NAME]$(get_model.MODEL_NAME)"
+          echo "##vso[task.setvariable variable=MODEL_VERSION]$(get_model.MODEL_VERSION)"
+        name: 'set_model_vars'
+  
     - task: AzureCLI@1
       displayName: 'Download Model Package (Artifacts and Dockerfile)'
       inputs:
@@ -89,3 +72,5 @@ stages:
         inlineScript: |
           set -e # fail on error
           python -m CreateModelPackage
+    - publish: $(Build.SourcesDirectory)/03-AML_AzDO_MLOpsDevelopment/docker
+      artifact: modelpackage
