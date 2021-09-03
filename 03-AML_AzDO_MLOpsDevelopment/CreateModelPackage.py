@@ -18,13 +18,13 @@ from azureml.core.environment import Environment
 from azureml.core.model import InferenceConfig, Model
 from azureml.core.webservice import LocalWebservice
 
-model_name = os.getenv('MODEL_NAME', '')
-model_version = os.getenv('MODEL_VERSION', '')
+model_name = 'Autoencoder_PredMaintenance'
+# model_version = os.getenv('MODEL_VERSION', '')
 
 # Create inference configuration based on the environment definition and the entry script
 myenv = Environment.get(ws, 'tf_keras_autoencoder_env')
 inference_config = InferenceConfig(entry_script="scoring/score.py", environment=myenv)
-model = Model(ws, name=model_name, version=model_version)
+model = Model(ws, name=model_name)
 
 package2 = Model.package(ws, [model], inference_config, generate_dockerfile=True)
 package2.wait_for_creation(show_output=True)
