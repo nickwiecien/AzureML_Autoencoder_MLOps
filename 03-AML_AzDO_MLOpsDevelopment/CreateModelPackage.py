@@ -23,7 +23,7 @@ model_version = os.getenv('MODEL_VERSION', '')
 
 # Create inference configuration based on the environment definition and the entry script
 myenv = Environment.get(ws, 'tf_keras_autoencoder_env')
-inference_config = InferenceConfig(entry_script="scoring_scripts/score.py", environment=myenv)
+inference_config = InferenceConfig(entry_script="./scoring_scripts/score.py", environment=myenv)
 model = Model(ws, name=model_name, version=model_version)
 
 package2 = Model.package(ws, [model], inference_config, generate_dockerfile=True)
