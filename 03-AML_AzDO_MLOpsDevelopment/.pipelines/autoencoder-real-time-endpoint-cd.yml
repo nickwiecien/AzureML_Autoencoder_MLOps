@@ -61,11 +61,11 @@ stages:
         inlineScript: |
           set -e # fail on error
           
-          az ml model deploy --name $(ACI_DEPLOYMENT_NAME) --model '$(get_model.MODEL_NAME):$(get_model.MODEL_VERSION)' \
-          --ic inference_config.yml \
-          --dc deployment_config_aci.yml \
-          -g $(RESOURCE_GROUP) --workspace-name $(WORKSPACE_NAME) \
-          --overwrite -v --ae True
+          # az ml model deploy --name $(ACI_DEPLOYMENT_NAME) --model '$(get_model.MODEL_NAME):$(get_model.MODEL_VERSION)' \
+          # --ic inference_config.yml \
+          # --dc deployment_config_aci.yml \
+          # -g $(RESOURCE_GROUP) --workspace-name $(WORKSPACE_NAME) \
+          # --overwrite -v --ae True
           MODEL_NAME="$(get_model.MODEL_NAME)"
           MODEL_VERSION="$(get_model.MODEL_VERSION)"
         name: 'deploy_to_aci'
@@ -81,6 +81,7 @@ stages:
           python -m smoke_test_scoring_service --type ACI --service "$(ACI_DEPLOYMENT_NAME)"
 
   - job: "Package_Model"
+  dependsOn: "Deploy_ACI"
     displayName: "Package_Model"
     container: mlops
     variables:
