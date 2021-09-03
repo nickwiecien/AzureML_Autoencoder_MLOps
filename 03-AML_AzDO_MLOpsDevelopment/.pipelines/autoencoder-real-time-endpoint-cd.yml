@@ -80,7 +80,7 @@ stages:
           export SUBSCRIPTION_ID=$(az account show --query id -o tsv)
           python -m smoke_test_scoring_service --type ACI --service "$(ACI_DEPLOYMENT_NAME)"
 
-  -job:
+  - job:
       displayName: "Package_Model"
       steps:
       - task: AzureCLI@1
