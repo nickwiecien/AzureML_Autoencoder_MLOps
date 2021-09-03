@@ -82,15 +82,16 @@ stages:
 
   -job:
       displayName: "Package_Model"
-    - task: AzureCLI@1
-      variables:
-          MODEL_NAME: $[ dependencies.Deploy_ACI.outputs['deploy_to_aci.MODEL_NAME'] ]
-          MODEL_VERSION: $[ dependencies.Deploy_ACI.outputs['deploy_to_aci.MODEL_VERSION'] ]
-      displayName: 'Download Model Package (Artifacts and Dockerfile)'
-      inputs:
-        azureSubscription: '$(WORKSPACE_SVC_CONNECTION)'
-        scriptLocation: inlineScript
-        workingDirectory: $(Build.SourcesDirectory)/03-AML_AzDO_MLOpsDevelopment
-        inlineScript: |
-          set -e # fail on error
-          python -m CreateModelPackage
+      steps:
+      - task: AzureCLI@1
+        variables:
+            MODEL_NAME: $[ dependencies.Deploy_ACI.outputs['deploy_to_aci.MODEL_NAME'] ]
+            MODEL_VERSION: $[ dependencies.Deploy_ACI.outputs['deploy_to_aci.MODEL_VERSION'] ]
+        displayName: 'Download Model Package (Artifacts and Dockerfile)'
+        inputs:
+          azureSubscription: '$(WORKSPACE_SVC_CONNECTION)'
+          scriptLocation: inlineScript
+          workingDirectory: $(Build.SourcesDirectory)/03-AML_AzDO_MLOpsDevelopment
+          inlineScript: |
+            set -e # fail on error
+            python -m CreateModelPackage
