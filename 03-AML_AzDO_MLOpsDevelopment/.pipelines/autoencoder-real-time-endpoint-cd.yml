@@ -82,6 +82,7 @@ stages:
 
   - job: "Package_Model"
     displayName: "Package_Model"
+    container: mlops
     variables:
           MODEL_NAME: $[ dependencies.Deploy_ACI.outputs['deploy_to_aci.MODEL_NAME'] ]
           MODEL_VERSION: $[ dependencies.Deploy_ACI.outputs['deploy_to_aci.MODEL_VERSION'] ]
