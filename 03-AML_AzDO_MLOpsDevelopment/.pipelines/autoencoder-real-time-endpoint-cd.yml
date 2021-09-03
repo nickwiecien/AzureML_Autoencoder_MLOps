@@ -75,11 +75,4 @@ stages:
     - publish: $(Build.SourcesDirectory)/03-AML_AzDO_MLOpsDevelopment/docker
       artifact: modelpackage
     
-    - task: Docker@2
-      inputs:
-        containerRegistry: 'acrserviceconn'
-        repository: 'autoencoder'
-        command: 'buildAndPush'
-        Dockerfile: '$(Build.SourcesDirectory)/03-AML_AzDO_MLOpsDevelopment/docker/Dockerfile/Dockerfile'
-    
     
