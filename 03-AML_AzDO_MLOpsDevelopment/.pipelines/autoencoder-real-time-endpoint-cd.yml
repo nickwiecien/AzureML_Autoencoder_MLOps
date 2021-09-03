@@ -61,13 +61,13 @@ stages:
         inlineScript: |
           set -e # fail on error
           
-          az ml model deploy --name $(ACI_DEPLOYMENT_NAME) --model '$(get_model.MODEL_NAME):$(get_model.MODEL_VERSION)' \
-          --ic inference_config.yml \
-          --dc deployment_config_aci.yml \
-          -g $(RESOURCE_GROUP) --workspace-name $(WORKSPACE_NAME) \
-          --overwrite -v --ae True
-          MODEL_NAME="$(get_model.MODEL_NAME)"
-          MODEL_VERSION="$(get_model.MODEL_VERSION)"
+          # az ml model deploy --name $(ACI_DEPLOYMENT_NAME) --model '$(get_model.MODEL_NAME):$(get_model.MODEL_VERSION)' \
+          # --ic inference_config.yml \
+          # --dc deployment_config_aci.yml \
+          # -g $(RESOURCE_GROUP) --workspace-name $(WORKSPACE_NAME) \
+          # --overwrite -v --ae True
+          echo "##vso[task.setvariable variable=MODEL_NAME;isOutput=true]$(get_model.MODEL_NAME)"
+          echo "##vso[task.setvariable variable=MODEL_NAME;isOutput=true]$(get_model.MODEL_VERSION)"
         name: 'deploy_to_aci'
     - task: AzureCLI@1
       displayName: 'Smoke test'
