@@ -77,7 +77,8 @@ run_config.environment.python.conda_dependencies.set_pip_requirements([
     'tensorflow==2.6.0',
     'keras==2.6.0',
     'azureml-defaults==1.33.0',
-    'matplotlib'
+    'matplotlib',
+    'azureml-model-management-sdk'
 ])
 run_config.environment.python.conda_dependencies.set_python_version('3.8.10')
 #Register environment for reuse 
