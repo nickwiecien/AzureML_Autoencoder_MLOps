@@ -16,7 +16,6 @@ from azureml.data.datapath import DataPath
 from azureml.data.data_reference import DataReference
 from azureml.data.sql_data_reference import SqlDataReference
 from azureml.pipeline.steps import DataTransferStep
-import logging
 import os
 
 # ### Connect to Azure ML Workspace, Provision Compute Resources, and get References to Datastores
