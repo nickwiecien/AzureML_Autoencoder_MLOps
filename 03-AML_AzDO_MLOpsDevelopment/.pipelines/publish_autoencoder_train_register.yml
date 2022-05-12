@@ -12,7 +12,7 @@ pr:
 trigger:
   branches:
     include:
-    - MLOps
+    - main
   paths:
     include:
     - 03-AML_AzDO_MLOpsDevelopment/
