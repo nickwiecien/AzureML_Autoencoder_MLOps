@@ -22,7 +22,7 @@ import os
 # ### Connect to Azure ML Workspace, Provision Compute Resources, and get References to Datastores
 # Connect to workspace using config associated config file. Get a reference to you pre-existing AML compute cluster or provision a new cluster to facilitate processing. Finally, get references to your default blob datastore.
 
-# Connect to AML Workspace
+# Connect to AML Workspace - comment
 subscription_id = os.getenv("SUBSCRIPTION_ID", default="")
 resource_group = os.getenv("RESOURCE_GROUP", default="")
 workspace_name = os.getenv("WORKSPACE_NAME", default="")
