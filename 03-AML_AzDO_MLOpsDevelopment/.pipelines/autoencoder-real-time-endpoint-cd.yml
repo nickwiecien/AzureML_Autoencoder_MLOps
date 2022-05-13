@@ -21,7 +21,7 @@ resources:
     trigger:
       branches:
         include:
-        - mlops_edge
+        - main
 
 variables:
 - template: mlops-variables-template.yml
