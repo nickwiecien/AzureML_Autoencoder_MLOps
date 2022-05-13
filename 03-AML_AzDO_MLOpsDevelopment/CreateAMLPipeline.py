@@ -12,10 +12,6 @@ from azureml.pipeline.core import Pipeline, PipelineParameter, PipelineData
 from azureml.pipeline.steps import PythonScriptStep
 from azureml.pipeline.core import PipelineParameter, PipelineData
 from azureml.data.output_dataset_config import OutputTabularDatasetConfig, OutputDatasetConfig, OutputFileDatasetConfig
-from azureml.data.datapath import DataPath
-from azureml.data.data_reference import DataReference
-from azureml.data.sql_data_reference import SqlDataReference
-from azureml.pipeline.steps import DataTransferStep
 import os
 
 # ### Connect to Azure ML Workspace, Provision Compute Resources, and get References to Datastores
