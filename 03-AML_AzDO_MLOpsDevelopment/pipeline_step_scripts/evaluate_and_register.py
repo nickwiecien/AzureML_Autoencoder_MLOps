@@ -58,9 +58,9 @@ else:
     #If a model has been registered previously, check to see if current model 
     #performs better (lower MSE). If so, register it.
     print(dir(model_list[0]))
-    if float(model_list[0].tags['Mean Squared Error']) > current_model_mse:
-        print('New model performs better than existing model. Register it.')
-        model = current_run.register_model(model_name, model_path='model_files', description=model_description, model_framework='Tensorflow/Keras', model_framework_version=tf.__version__, tags=updated_tags, datasets=formatted_datasets, sample_input_dataset = training_dataset)
-    else:
-        print('New model does not perform better than existing model. Cancel run.')
-        current_run.parent.cancel()
+    # if float(model_list[0].tags['Mean Squared Error']) > current_model_mse:
+    print('New model performs better than existing model. Register it.')
+    model = current_run.register_model(model_name, model_path='model_files', description=model_description, model_framework='Tensorflow/Keras', model_framework_version=tf.__version__, tags=updated_tags, datasets=formatted_datasets, sample_input_dataset = training_dataset)
+    # else:
+    #     print('New model does not perform better than existing model. Cancel run.')
+    #     current_run.parent.cancel()
