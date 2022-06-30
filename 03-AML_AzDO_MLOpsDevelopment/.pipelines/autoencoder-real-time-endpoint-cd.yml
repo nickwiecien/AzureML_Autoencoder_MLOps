@@ -74,14 +74,29 @@ stages:
           set -e # fail on error
           export SUBSCRIPTION_ID=$(az account show --query id -o tsv)
           python -m smoke_test_scoring_service --type ACI --service "$(ACI_DEPLOYMENT_NAME)"
+
+- stage: 'Manual_Validation'
+  displayName: 'Manual Validation'   
+  dependsOn: Deploy_ACI
+  condition: succeeded()
+  jobs:
+  - job: waitForValidation
+    displayName: Wait for external validation
+    pool: server
+    timeoutInMinutes: 4320 # job times out in 3 days
+    steps:
     - task: ManualValidation@0
+      timeoutInMinutes: 1440 # task times out in 1 day
       inputs:
-        notifyUsers: 'nick.kwiecien@microsoft.com'
+        notifyUsers: |
+          nick.kwiecien@microsoft.com
+        instructions: 'Please validate the model deployment and resume'
+        onTimeout: 'resume'
 
 
 - stage: 'Deploy_AKS'
   displayName: 'Deploy to AKS'
-  dependsOn: Deploy_ACI
+  dependsOn: Manual_Validation
   condition: and(succeeded(), variables['AKS_DEPLOYMENT_NAME'])
   jobs:
   - job: "Deploy_AKS"
