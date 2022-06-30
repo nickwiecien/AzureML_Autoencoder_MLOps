@@ -89,7 +89,7 @@ stages:
     container: mlops
     timeoutInMinutes: 0
     steps:
-    - template: diabetes_regression-get-model-id-artifact-template.yml
+    - template: autoencoder-get-model-id-artifact-template.yml
       parameters:
         projectId: '$(resources.pipeline.model-train-ci.projectID)'
         pipelineId: '$(resources.pipeline.model-train-ci.pipelineID)'
