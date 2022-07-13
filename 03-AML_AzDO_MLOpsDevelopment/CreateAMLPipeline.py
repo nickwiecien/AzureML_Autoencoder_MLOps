@@ -2,8 +2,8 @@
 # ## Azure ML Pipeline - Parameterized Input Dataset Hello World
 # This notebook demonstrates creation & execution of an Azure ML pipeline designed to accept a parameterized input reflecting the location of a file in the Azure ML default datastore to be initially registered as a tabular dataset and subsequently processed. This notebook was built as part of a larger solution where files were moved from a blob storage container to the default AML datastore via Azure Data Factory.
 
-from azureml.core import Workspace, Experiment, Datastore, Environment, Dataset
-from azureml.core.compute import ComputeTarget, AmlCompute, DataFactoryCompute
+from azureml.core import Workspace, Environment
+from azureml.core.compute import ComputeTarget, AmlCompute
 from azureml.core.compute_target import ComputeTargetException
 from azureml.core.runconfig import RunConfiguration
 from azureml.core.conda_dependencies import CondaDependencies
@@ -11,7 +11,7 @@ from azureml.core.runconfig import DEFAULT_CPU_IMAGE
 from azureml.pipeline.core import Pipeline, PipelineParameter, PipelineData
 from azureml.pipeline.steps import PythonScriptStep
 from azureml.pipeline.core import PipelineParameter, PipelineData
-from azureml.data.output_dataset_config import OutputTabularDatasetConfig, OutputDatasetConfig, OutputFileDatasetConfig
+from azureml.data.output_dataset_config import OutputFileDatasetConfig
 import os
 
 # ### Connect to Azure ML Workspace, Provision Compute Resources, and get References to Datastores
