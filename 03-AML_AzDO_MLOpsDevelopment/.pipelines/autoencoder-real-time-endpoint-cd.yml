@@ -125,18 +125,8 @@ stages:
         inlineScript: |
           set -e # fail on error
           
-          az ml model deploy --name $(AKS_DEPLOYMENT_NAME) --model '$(MODEL_NAME):$(get_model.MODEL_VERSION)' \
-          --compute-target $(AKS_COMPUTE_NAME) \
+          az ml model deploy --name $(AKS_DEPLOYMENT_NAME) --model '$(get_model.MODEL_NAME):$(get_model.MODEL_VERSION)' \
           --ic inference_config.yml \
-          --dc deployment_config_aks.yml \
+          --dc deployment_config_aci.yml \
           -g $(RESOURCE_GROUP) --workspace-name $(WORKSPACE_NAME) \
-          --overwrite -v
-    - task: AzureCLI@1
-      displayName: 'Smoke test'
-      inputs:
-        azureSubscription: '$(WORKSPACE_SVC_CONNECTION)'
-        scriptLocation: inlineScript
-        inlineScript: |
-          set -e # fail on error
-          export SUBSCRIPTION_ID=$(az account show --query id -o tsv)
-          python -m ml_service.util.smoke_test_scoring_service --type AKS --service "$(AKS_DEPLOYMENT_NAME)"
+          --overwrite -v --ae True
